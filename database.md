@@ -27,8 +27,6 @@ Model Data yang paling sering digunakan adalah *ERD* (Entity Relationship Diagra
 
 - Entity (Rectangle) -> Tabel = Suatu entitas yang mewakili individu sesuai ruang lingkup
 - Attribute (Oval) -> Kolom = Karakteristik yang mendeskripsikan suatu entitas
-- Attribute Key (Underline) -> Primary Key = Atribut kunci yang khas untuk suatu entitas
-- Foreign Key = Lookup ke Attribute Key
 - Relationship (Rhombus) = Merupakan hubungan antar entitas
 - Link (Line) = Hubungan untuk mengetahui relasi antar entitas
 
@@ -47,3 +45,23 @@ Kardinalitas / Derajat Relasi :
 - **Unary Relationship** = Entitas yang berelasi dengan dirinya sendiri (Referral)
 - **Multi Entity Relationship** = Entias yang berelasi lebih dari 2 entitas
 - **Redundant Relationship** = Entitas yang dapat berelasi lebih dari 1 relasi
+
+## Atribut
+
+- Attribute Key / Primary Key = Atribut kunci yang khas untuk suatu entitas
+- Superkey -> Candidate Key -> Primary Key
+- Foreign Key = Attribute Key milik entitas lain yang digunakan sebagai Lookup
+- Simple Attribute = Atribut yang sudah tidak dapat diuraikan lagi
+- Composite Attribute = Atribut yang dapat diurai misalnya seperti alamat
+- Single-Value Attribute = Atribut yang hanya memiliki 1 nilai dalam 1 kolom
+- Multi-Value Attribute = Atribut yang memiliki banyak nilai dalam 1 kolom misalnya kode produk
+- Mandatory Attribute = Atribut yang wajib memiliki nilai atau tidak NULL
+- Derived Attribute = Atribut turunan hasil dari atribut lain
+
+## Normalisasi Data
+
+1. First Normal Form = Tidak boleh ada kolom yang berulang seperti produk 1, produk 2 dst dan tidak boleh ada Derived Attribute
+2. Second Normal Form = Buat tabel baru pada baris yang berulang dan tentukan PK FK nya
+3. Third Normal Form = Membuat tabel jika ada atribut yang tidak bergantung pada Attribute Key (A->B)
+
+Denormalisasi data = Melanggar aturan normalisasi data untuk tujuan Read dengan lebih cepat
