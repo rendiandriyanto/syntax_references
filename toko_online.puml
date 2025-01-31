@@ -1,0 +1,97 @@
+@startuml Toko Online
+
+entity Pembeli {
+    email_pembeli (PK)
+    --
+    email_pembeli (FK) (Unary Relationship)
+    --
+    nama
+}
+
+entity Barang {
+    sku (PK)
+    --
+    nama
+    harga
+}
+
+entity Penjual {
+    email_penjual (PK)
+    --
+    nama
+}
+
+entity Dompet {
+    email_pembeli (FK)
+    --
+    saldo
+}
+
+entity Laptop {
+    sku (PK)
+    --
+    cpu
+    ram
+    disk
+}
+
+entity Pakaian {
+    sku (PK)
+    --
+    ukuran
+    warna
+}
+
+entity Bank {
+    kode (PK)
+    --
+    nama
+}
+
+entity Menyukai {
+    email_pembeli (FK)
+    sku (FK)
+}
+
+entity Membeli {
+    email_pembeli (FK)
+    sku (FK)
+    kode (FK)
+    --
+    jumlah
+}
+
+entity Menjual {
+    email_penjual (FK)
+    sku (FK)
+}
+
+Pembeli ||--o{ Membeli
+Membeli }|--|| Barang
+Pembeli ||--o{ Menyukai
+note on link
+    Redundant Relationship
+end note
+Menyukai }|--|| Barang
+Bank ||--|{ Membeli
+note on link
+Multi-Entity Relationship
+end note
+Pembeli ||--o| Dompet
+note on link
+    Weak Entity
+end note
+Penjual ||--o{ Menjual
+Menjual }o--|| Barang
+Barang ||--o| Laptop
+note on link
+    ISA
+    Sub Entity
+end note
+Barang ||--o| Pakaian
+note on link
+    ISA
+    Sub Entity
+end note
+
+@enduml
