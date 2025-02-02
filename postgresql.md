@@ -20,6 +20,7 @@ Credits :
 - `\conninfo` = Untuk melihat detail koneksi
 - `\dt` = Melihat seluruh tabel
 - `\ds` = Melihat seluruh Sequence
+- `\du` = Melihat seluruh Role
 - `\d` = Melihat seluruh struktur yang telah dibuat pada Database
 - `\d [table]` = Untuk melihat struktur data tabel
 
@@ -87,3 +88,79 @@ Credits :
 - `DELETE FROM [table] WHERE [column];` = Menghapus data
 - `SELECT [column] AS [alias] FROM [table];` = Melakukan alias agar memperbuat Read
 - `= != < > <= >= OR AND ()` = Operator perbandingan dan logika
+- `WHERE [column] LIKE/ILIKE/NOT LIKE '%value%';` = Mencari karakter yang cocok
+- `WHERE [column] IS NULL/IS NOT NULL` = Mencari data NULL
+- `WHERE [column] BETWEEN/NOT BETWEEN [value] AND [value];` = Mencari nilai di antaranya
+- `WHERE [column] IN/NOT IN ('value', 'value');` = Mencari beberapa nilai sekaligus
+- `ORDER BY [value] ASC/DESC;` = Pengurutan
+- `LIMIT [value] OFFSET [value];` = Membatasi tampilan data dan men-skip data
+- `SELECT DISTINCT [column] FROM [table];` = Menghasilkan Output unik yang tidak duplikat
+- `+ - * / %` = Operasi matematika pada SQL
+- `LOWER, UPPER, LENGTH` = Contoh String Function
+- `EXTRACT([YEAR/MONTH/DATE] FROM [column])` = Contoh Datetime Function
+- `COUNT, MAX, MIN, AVG` = Contoh Aggregate Function
+
+## Sequence
+
+- `CREATE SEQUENCE [seq];` = Membuat Sequence atau urutan
+- `SELECT CURRVAL([seq]);` = Melihat urutan terkini
+- `SELECT NEXTVAL([seq]);` = Menambahkan Sequence ke urutan selanjutnya
+- `DROP SEQUENCE [seq];` = Menghapus Sequence
+
+## If Else / CASE dalam SQL
+
+- `SELECT CASE [column] WHEN [value] THEN [condition] ELSE [condition] END AS [column]` = Pengkondisian pada SQL
+- `SELECT CASE WHEN [column] > [value] THEN [condition] ELSE [condition] END AS [column]` = Menggunakan operasi
+- `SELECT CASE WHEN [column] IS NULL THEN [condition] ELSE [condition] END AS [column]` = Mengecek NULL
+
+## GROUP BY
+
+- `SELECT [column], [agg func] FROM [table] GROUP BY [column];` = Menampilkan kolom dengan agregat
+- `SELECT [column], [agg func] FROM [table] GROUP BY [column] HAVING [agg func];` = Mensortir hasil GROUP BY
+
+## CONSTRAINT
+
+- `CONSTRAINT [constraint] UNIQUE ([column]);` = Membuat data suatu kolom menjadi unik
+- `CONSTRAINT [constraint] CHECK ([column] [condition]);` = Membuat agar kolom tetap valid
+- `DROP CONSTRAINT [constraint];` = Menghapus Constraint pada tabel tertentu
+
+## INDEX & FULL TEXT SEARCH
+
+- `CREATE INDEX [index] ON [table] (column);` = Membuat Index agar mempercepat Read
+- `SELECT CFGNAME FROM pg_ts_config;` = Melihat bahasa yang tersedia untuk FTS
+- `CREATE INDEX [index] ON [table] USING GIN (to_tsvector('[lang]', '[column]'));` = Membuat FTS
+- `SELECT * FROM [table] WHERE [column] @@ to_tsquery ('|&!');` = Melakukan Read FTS
+- `DROP INDEX [index];` = Menghapus Index dan FTS
+
+## Relational - Join Table - Sub Query - Set Operator - Transaction
+
+- `CONSTRAINT [constraint] FOREIGN KEY ([column]) REFERENCES [table] ([column]);` = Menambahkan Foreign Key
+- `ON DELETE/UPDATE RESTRICT/CASCADE/NO ACTION/SET NULL/SET DEFAULT` = Behavior Constraint
+- `JOIN [table] ON [table].[column] = [table].[column] JOIN ~;` = Menggabungkan 2 tabel atau lebih
+- `INNER - LEFT - RIGHT - FULL` = Macam-macam Join
+- `SELECT * FROM [table] WHERE [table] [condition] ([sub]);` = Sub Query dari Where Clause
+- `SELECT * FROM ([sub]) AS [as];` = Sub Query dari From Clause
+- `UNION - UNION ALL - INTERSECT - EXCEPT` = Macam-macam Set operator
+- `START TRANSACTION - COMMIT - ROLLBACK` = Alur Database Transaction
+- `SELECT * FROM [table] WHERE [coloum] [condition] [value] FOR UPDATE;` = Locking data secara manual
+
+## Schema
+
+- `SELECT CURRENT_SCHEMA();` = Melihat skema yang sedang digunakan
+- `CREATE SCHEMA [schema];` = Membuat skema baru
+- `SET SEARCH_PATH TO [schema];` = Pindah ke skema lain
+- `DROP SCHEMA [schema];` = Menghapus skema
+
+## User Role
+
+- `CREATE ROLE [role];` = Membuat Role
+- `DROP ROLE [role];` = Menghapus Role
+- `ALTER ROLE [role] [option];` = Memberikan opsi seperti Login / Password
+- `GRANT [access] ON ALL TABLES IN SCHEMA [schema] TO [role];` = Memberikan seluruh akses tabel
+- `GRANT [access] ON [tables] TO [role];` = Memberikan akses ke suatu tabel
+- `GRANT [access] ON [tables] FROM [role];` = Menghapus akses suatu Role
+
+## Backup & Restore
+
+- `pg_dump -h [host] -p [port] -d [db] --format=plain -f [loc] -U [user] -W` = Backup
+- `psql -h [host] -p [port] -d [db] -f [loc] -U [user] -W` = Restore
