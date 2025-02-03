@@ -1,0 +1,141 @@
+@startuml Spotify
+
+entity Artist {
+    * id_artist : VARCHAR
+    --
+    * name : VARCHAR
+    * bio : TEXT
+    ig : VARCHAR
+    fb : VARCHAR
+    x : VARCHAR
+    wiki : VARCHAR
+}
+
+entity Album {
+    * id_album : VARCHAR
+    --
+    * title : VARCHAR
+    * release : SMALLINT
+    * image : VARCHAR
+}
+
+entity Song {
+    * id_song : VARCHAR
+    --
+    id_album : VARCHAR
+    --
+    * title : VARCHAR
+    * image : VARCHAR
+    * duration : INT
+}
+
+entity User {
+    * id_user : VARCHAR
+    --
+    * name : VARCHAR
+    * email : VARCHAR
+    birth : DATE
+}
+
+entity Category {
+    * id_category : VARHCAR
+    --
+    * name : VARCHAR
+    * image : VARCHAR
+    * icon : VARCHAR
+    * type : ENUM
+}
+
+entity Playlist {
+    * id_playlist : VARCHAR
+    --
+    * id_user : VARCHAR
+    id_category : VARCHAR
+    --
+    * name : VARCHAR
+    description : TEXT
+    image : VARCHAR
+}
+
+entity Podcast {
+    * id_podcast : VARCHAR
+    --
+    * id_user : VARCHAR
+    id_category : VARCHAR
+    --
+    * name : VARCHAR
+    about : TEXT
+    image : VARCHAR
+}
+
+entity Episode {
+    * id_podcast : VARCHAR
+    --
+    * title : VARCHAR
+    * published_at : DATE
+    * duration : INT
+    description : TEXT
+}
+
+entity Concert {
+    * id_concert : VARCHAR
+    --
+    * event_at : DATE
+    * ticket : VARCHAR
+    * location : VARCHAR
+}
+
+Artist }|--|{ Song
+note on link
+Sing
+end note
+Artist }|--o{ Album
+note on link
+Has
+end note
+Artist }|--o{ Concert
+note on link
+Perform
+end note
+Album |o--|{ Song
+note on link
+Contains
+end note
+Song }o--o{ Playlist
+note on link
+Contains
+end note
+Song }o--o{ User
+note on link
+Like
+end note
+User }o--o{ Artist
+note on link
+Follow
+end note
+User ||--o{ Playlist
+note on link
+Create
+end note
+User ||--o{ Podcast
+note on link
+Create
+end note
+User }o--o{ Playlist
+note on link
+Follow
+end note
+Category |o--|{ Playlist
+note on link
+Contains
+end note
+Category |o--|{ Podcast
+note on link
+Contains
+end note
+Podcast ||--o{ Episode
+note on link
+Contains
+end note
+
+@enduml

@@ -1,0 +1,125 @@
+Etitas Artist :
+- id_artist = id untuk artis
+- name = nama artis
+- bio = deskripsi artis
+- ig = link instagram artis
+- fb = link facebook artis
+- x = link x/twitter artis
+- wiki = link wikipedia artis
+
+Entitas Album :
+- id_album = id untuk album
+- title = judul album
+- release = tahun album keluar
+- image = link gambar album
+
+Entitas Song :
+- id_song = id untuk lagu
+- id_album = id untuk album
+- title = judul lagu
+- image = link gambar lagu
+- duration = durasi lagu
+1. id_album tidak Mandatory karena lagu dapat berdiri sendiri tanpa adanya album (single)
+2. duration menggunakan SMALLINT karena saya belum mengerti bagaimana cara meng-handle nya
+
+Entitas User :
+- id_user = id untuk pengguna
+- name = nama pengguna
+- email = email pengguna
+- birth = tanggal lahir pengguna
+
+Entitas Category :
+- id_category = id untuk kategori
+- name = nama untuk kategori
+- image = link gambar kategori
+- icon = link ikon kategori
+- type = tipe dari kategori
+1. type menggunakan ENUM untuk menentukan kalau kategori nya termasuk dalam Playlist atau Podcast
+
+Entitas Playlist :
+- id_playlist = id untuk playlist
+- id_user = id untuk pengguna
+- id_category = id untuk kategori
+- name = nama playlist
+- description = deskripsi playlist
+- image = link gambar playlist
+1. id_user digunakan untuk membuat playlist karena playlist wajib ada yang membuat
+2. id_category tidak Mandatory karena playlist tidak wajib berada dalam kategori
+
+Entitas Podcast :
+- id_podcast = id untuk podcast
+- id_user = id untuk pengguna
+- id_category = id untuk kategori
+- name = nama podcast
+- about = deskripsi podcast
+- image = link gambar podcast
+1. Compliance sama seperti playlist terhadap pengguna dan kategori
+
+Entitas Episode :
+- id_podcast = id untuk podcast
+- title = judul podcast
+- published_at = waktu episode di Upload
+- duration = durasi episode
+- description = deskripsi episode
+1. id_podcast digunakan karena episode bergantung pada podcast
+2. duration sama seperti entitas Song
+
+Entitas Concert :
+- id_concert = id untuk konser
+- event_at = waktu penyelenggaraan konser
+- ticket = link pembelian tiket
+- location = lokasi penyelenggaraan konser
+
+Kardinalitas / Derajat Relasi :
+
+1. Artist }|--|{ Song
+- 1 artis dapat memiliki banyak lagu dan 1 lagu dapat dimiliki oleh banyak artis (collab/feat)
+- artis wajib memiliki lagu dan lagu wajib dimiliki oleh artis
+
+2. Artist }|--o{ Album
+- 1 artis dapat memiliki banyak album dan 1 album dapat dimiliki oleh banyak artis (collab/feat)
+- artis bisa tidak memiliki album tetapi album wajib dimiliki oleh artis
+
+3. Artist }|--o{ Concert
+- 1 artis dapat menggelar banyak konser dan 1 konser dapat memiliki banyak artis yang tampil
+- artis bisa tidak memiliki konser tetapi konser wajib dimiliki oleh artis
+
+4. Album |o--|{ Song
+- 1 album dapat memiliki banyak lagu dan 1 lagu hanya dapat dimiliki oleh 1 album
+- album wajib memiliki lagu tetapi lagu bisa saja tidak memiliki album (single)
+
+5. Song }o--o{ Playlist
+- 1 lagu dapat dimiliki oleh banyak playlist dan 1 playlist dapat memiliki banyak lagu
+- lagu dapat tidak dimasukan dalam playlist dan playlist dapat tidak memiliki lagu (baru membuat)
+
+6. Song }o--o{ User
+- 1 lagu dapat disukai oleh banyak pengguna dan 1 pengguna dapat menyukai banyak lagu
+- lagu dapat disukai atau tidak oleh pengguna dan pengguna dapat menyukai lagu atau tidak
+
+7. User }o--o{ Artist
+- 1 pengguna dapat mengikuti banyak artis dan 1 artis dapat diikuti oleh banyak pengguna
+- pengguna dapat mengikuti artis atau tidak dan artis dapat diikuti oleh pengguna atau tidak
+
+8. User ||--o{ Playlist
+- 1 pengguna dapat membuat banyak playlist dan 1 playlist hanya dimiliki oleh 1 pengguna
+- pengguna dapat memiliki playlist atau tidak dan playlist wajib dimiliki oleh pengguna
+
+9. User ||--o{ Podcast
+- 1 pengguna dapat membuat banyak podcast dan 1 podcast hanya dimiliki oleh 1 pengguna
+- pengguna dapat memiliki podcast atau tidak dan podcast wajib dimiliki oleh pengguna
+
+10. User }o--o{ Playlist
+- 1 pengguna dapat mengikuti banyak playlist dan 1 playlist dapat diikuti oleh banyak pengguna
+- pengguna dapat mengikuti playlist atau tidak dan playlist dapat diikuti oleh pengguna atau tidak
+
+11. Category |o--|{ Playlist
+- 1 kategori dapat memiliki banyak playlist dan 1 playlist hanya dapat dimiliki oleh 1 kategori
+- kategori wajib memiliki playlist dan playlist bisa saja tidak dimiliki oleh kategori (Independent)
+
+12. Category |o--|{ Podcast
+- 1 kategori dapat memiliki banyak podcast dan 1 podcast hanya dapat dimiliki oleh 1 kategori
+- kategori wajib memiliki podcast dan podcast bisa saja tidak dimiliki oleh kategori (Independent)
+
+13. Podcast ||--o{ Episode
+- 1 podcast dapat memiliki banyak episode tetapi 1 episode hanya dimiliki oleh 1 podcast
+- podcast dapat memiliki episode atau tidak dan episode wajib dimiliki oleh podcast
