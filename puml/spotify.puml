@@ -10,6 +10,21 @@ entity Artist {
     x : VARCHAR
     wiki : VARCHAR
 }
+/'
+Entitas Artist :
+1. id_artist = id untuk artis
+2. name = nama artis
+3. bio = deskripsi artis
+4. ig = link instagram artis
+5. fb = link facebook artis
+6. x = link x/twitter artis
+7. wiki = link wikipedia artis
+- id_artist dan PRIMARY KEY pada tabel lain menggunakan VARCHAR karena saya belum belajar UUID dan semacamnya yang sebenarnya lebih umum digunakan untuk PRIMARY KEY di setiap tabel
+- id_artist tidak menggunakan SERIAL karena saya ingin meng-input data dummy saja seperti 'artist1' 'artist2' 'artist3' dan seterusnya dengan tujuan melihat apakah relasi antar tabel nya berjalan dengan baik atau tidak
+- id_artist menggunakan VARCHAR disamakan kepatuhan nya untuk seluruh PRIMARY KEY pada tabel lain
+- bio diwajibkan untuk di isi untuk seluruh artis
+- ig, fb, x, wiki menggunakan VARCHAR dengan data link didalam nya untuk melihat masing-masing Profile artis pada platform lain
+'/
 
 entity Album {
     * id_album : VARCHAR
@@ -18,6 +33,15 @@ entity Album {
     * release : SMALLINT
     * image : VARCHAR
 }
+/'
+Entitas Album :
+1. id_album = id untuk album
+2. title = judul album
+3. release = tahun album keluar
+4. image = link gambar album
+- release menggunakan SMALLINT karena hanya digunakan untuk memperlihatkan tahun album tersebut di rilis
+- image dan yang lain nya jika mengandung kata link artinya gambar tersebut di taruh pada cloud storage lalu ditampilkan, bukan pada database. kepatuhan ini digunakan pada seluruh database yang mengandung arti link.
+'/
 
 entity Song {
     * id_song : VARCHAR
@@ -28,6 +52,16 @@ entity Song {
     * image : VARCHAR
     * duration : INT
 }
+/'
+Entitas Song :
+1. id_song = id untuk lagu
+2. id_album = id untuk album
+3. title = judul lagu
+4. image = link gambar lagu
+5. duration = durasi lagu
+- id_album tidak Mandatory karena lagu dapat berdiri sendiri tanpa adanya album (single)
+- duration menggunakan INT karena saya belum mengerti bagaimana cara meng-handle nya, analogi nya jika lagu tersebut berdurasi 2 menit 15 detik maka akan di input 135
+'/
 
 entity User {
     * id_user : VARCHAR
@@ -36,6 +70,13 @@ entity User {
     * email : VARCHAR
     birth : DATE
 }
+/'
+Entitas User :
+1. id_user = id untuk pengguna
+2. name = nama pengguna
+3. email = email pengguna
+4. birth = tanggal lahir pengguna
+'/
 
 entity Category {
     * id_category : VARHCAR
@@ -45,6 +86,16 @@ entity Category {
     * icon : VARCHAR
     * type : ENUM
 }
+/'
+Entitas Category :
+1. id_category = id untuk kategori
+2. name = nama untuk kategori
+3. image = link gambar kategori
+4. icon = link ikon kategori
+5. type = tipe dari kategori
+- type menggunakan ENUM untuk menentukan kalau kategori nya berisi Playlist atau Podcast
+- type digunakan sebagai implementasi Sub Entity dari materi pembelajaran saya
+'/
 
 entity Playlist {
     * id_playlist : VARCHAR
@@ -56,6 +107,18 @@ entity Playlist {
     description : TEXT
     image : VARCHAR
 }
+/'
+Entitas Playlist :
+1. id_playlist = id untuk playlist
+2. id_user = id untuk pengguna
+3. id_category = id untuk kategori
+4. name = nama playlist
+5. description = deskripsi playlist
+6. image = link gambar playlist
+- id_user digunakan untuk membuat playlist karena playlist wajib ada yang membuat
+- id_user juga digunakan untuk mengikuti playlist (sebenarnya tidak efisien, tetapi demi kesederhanaan database maka saya lakukan)
+- id_category tidak Mandatory karena playlist tidak wajib berada dalam kategori
+'/
 
 entity Podcast {
     * id_podcast : VARCHAR
@@ -67,6 +130,17 @@ entity Podcast {
     about : TEXT
     image : VARCHAR
 }
+/'
+Entitas Podcast :
+1. id_podcast = id untuk podcast
+2. id_user = id untuk pengguna
+3. id_category = id untuk kategori
+4. name = nama podcast
+5. about = deskripsi podcast
+6. image = link gambar podcast
+- id_user memiliki kepatuhan yang sama seperti playlist
+- id_category memiliki kepatuhan yang sama seperti playlist
+'/
 
 entity Episode {
     * id_podcast : VARCHAR
@@ -76,6 +150,17 @@ entity Episode {
     * duration : INT
     description : TEXT
 }
+/'
+Entitas Episode :
+1. id_podcast = id untuk podcast
+2. title = judul episode
+3. published_at = waktu episode di upload
+4. duration = durasi episode
+5. description = deskripsi episode
+- id_podcast digunakan pada entitas episode karena episode bergantung pada podcast
+- id_podcast juga digunakan sebagai implementasi Weak Entity dari materi pembelajaran saya
+- duration pada episode memiliki kepatuhan yang sama seperti pada tabel Song
+'/
 
 entity Concert {
     * id_concert : VARCHAR
@@ -84,58 +169,119 @@ entity Concert {
     * ticket : VARCHAR
     * location : VARCHAR
 }
+/'
+Entitas Concert :
+1. id_concert = id untuk konser
+2. event_at = waktu penyelenggaraan konser
+3. ticket = link pembelian tiket
+4. location = link lokasi penyelenggaraan konser
+- ticket dan location menggunakan link untuk menuju pada platform lain
+'/
 
 Artist }|--|{ Song
 note on link
 Sing
 end note
+/'
+- 1 artis dapat memiliki banyak lagu dan 1 lagu dapat dimiliki oleh banyak artis (collab/feat)
+- artis wajib memiliki lagu dan lagu wajib dimiliki oleh artis, jika terdapat kolaborasi maka artis wajib menentukan di artis mana lagu tersebut akan di tampilkan
+'/
 Artist }|--o{ Album
 note on link
 Has
 end note
+/'
+- 1 artis dapat memiliki banyak album dan 1 album dapat dimiliki oleh banyak artis (collab/feat)
+- artis bisa tidak memiliki album (misalnya artis baru/lagu single) tetapi album wajib dimiliki oleh artis. jika terjadi kolaborasi lagi maka mengikuti kepatuhan seperti pada relasi artis dan lagu
+'/
 Artist }|--o{ Concert
 note on link
 Perform
 end note
+/'
+- 1 artis dapat menggelar banyak konser dan 1 konser dapat memiliki banyak artis yang tampil
+- artis bisa tidak memiliki konser tetapi konser wajib dimiliki oleh artis, analogi nya 1 konser menggunakan artis yang memiliki popularitas paling tinggi untuk dimiliki
+'/
 Album |o--|{ Song
 note on link
 Contains
 end note
+/'
+4. Album |o--|{ Song
+- 1 album dapat memiliki banyak lagu dan 1 lagu hanya dapat dimiliki oleh 1 album, tujuan ini hanya untuk kesederhanaan database dan memang bisa ditingkatkan
+- album wajib memiliki lagu tetapi lagu bisa saja tidak memiliki album (single)
+'/
 Song }o--o{ Playlist
 note on link
 Contains
 end note
+/'
+- 1 lagu dapat dimiliki oleh banyak playlist dan 1 playlist dapat memiliki banyak lagu
+- lagu dapat tidak dimasukan dalam playlist dan playlist dapat tidak memiliki lagu (baru membuat playlist dan belum memasukan lagu kedalamnya)
+'/
 Song }o--o{ User
 note on link
 Like
 end note
+/'
+- 1 lagu dapat disukai oleh banyak pengguna dan 1 pengguna dapat menyukai banyak lagu
+- lagu dapat disukai atau tidak oleh pengguna dan pengguna dapat menyukai lagu atau tidak
+'/
 User }o--o{ Artist
 note on link
 Follow
 end note
+/'
+- 1 pengguna dapat mengikuti banyak artis dan 1 artis dapat diikuti oleh banyak pengguna
+- pengguna dapat mengikuti artis atau tidak dan artis dapat diikuti oleh pengguna atau tidak
+'/
 User ||--o{ Playlist
 note on link
 Create
 end note
+/'
+- 1 pengguna dapat membuat banyak playlist dan 1 playlist hanya dimiliki oleh 1 pengguna, sekali lagi ini dilakukan demi kesederhanaan
+- pengguna dapat memiliki playlist atau tidak dan playlist wajib dimiliki oleh pengguna
+'/
 User ||--o{ Podcast
 note on link
 Create
 end note
+/'
+- 1 pengguna dapat membuat banyak podcast dan 1 podcast hanya dimiliki oleh 1 pengguna
+- pengguna dapat memiliki podcast atau tidak dan podcast wajib dimiliki oleh pengguna
+'/
 User }o--o{ Playlist
 note on link
 Follow
 end note
+/'
+- 1 pengguna dapat mengikuti banyak playlist dan 1 playlist dapat diikuti oleh banyak pengguna
+- pengguna dapat mengikuti playlist atau tidak dan playlist dapat diikuti oleh pengguna atau tidak
+'/
 Category |o--|{ Playlist
 note on link
 Contains
 end note
+/'
+- 1 kategori dapat memiliki banyak playlist dan 1 playlist hanya dapat dimiliki oleh 1 kategori
+- kategori wajib memiliki playlist dan playlist bisa saja tidak dimiliki oleh kategori (Independent)
+'/
 Category |o--|{ Podcast
 note on link
 Contains
 end note
+/'
+- 1 kategori dapat memiliki banyak podcast dan 1 podcast hanya dapat dimiliki oleh 1 kategori
+- kategori wajib memiliki podcast dan podcast bisa saja tidak dimiliki oleh kategori (Independent)
+'/
 Podcast ||--o{ Episode
 note on link
 Contains
 end note
+/'
+- 1 podcast dapat memiliki banyak episode tetapi 1 episode hanya dimiliki oleh 1 podcast
+- podcast dapat memiliki episode atau tidak (baru membuat podcast) dan episode wajib dimiliki oleh podcast
+'/
 
 @enduml
