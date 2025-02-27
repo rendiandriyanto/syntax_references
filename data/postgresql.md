@@ -1,13 +1,14 @@
 # PostgreSQL
 
-![PostgreSQL](images/postgresql.png)
+![PostgreSQL](../images/postgresql.png)
 
 Image by [Freepik](https://www.freepik.com/icon/postgre_5968342#fromView=keyword&page=1&position=1&uuid=f5d152b7-d1d4-42ce-b9ee-71147a1c9ad1)
 
 Credits :
 > [Programmer Zaman Now](https://www.youtube.com/watch?v=iEeveYoD0SA&t=529s) -
 > [ProgrammingKnowledge](https://www.youtube.com/watch?v=tducLYZzElo) -
-> [Buttle Butkus](https://stackoverflow.com/questions/61523447/skipping-acquire-of-configured-file-main-binary-i386-packages)
+> [Buttle Butkus](https://stackoverflow.com/questions/61523447/skipping-acquire-of-configured-file-main-binary-i386-packages) -
+> [DataCamp](https://www.datacamp.com/tracks/associate-data-engineer-in-sql)
 
 ## Alur Kerja
 
@@ -86,7 +87,7 @@ Credits :
 - `WHERE [column] [value];` = Mencari data spesifik
 - `UPDATE [table] SET [column] WHERE [column];` = Mengubah data
 - `DELETE FROM [table] WHERE [column];` = Menghapus data
-- `SELECT [column] AS [alias] FROM [table];` = Melakukan alias agar memperbuat Read
+- `SELECT [column] AS [alias] FROM [table];` = Melakukan alias agar mempermudah Read
 - `= != < > <= >= OR AND ()` = Operator perbandingan dan logika
 - `WHERE [column] LIKE/ILIKE/NOT LIKE '%value%';` = Mencari karakter yang cocok
 - `WHERE [column] IS NULL/IS NOT NULL` = Mencari data NULL
@@ -99,6 +100,11 @@ Credits :
 - `LOWER, UPPER, LENGTH` = Contoh String Function
 - `EXTRACT([YEAR/MONTH/DATE] FROM [column])` = Contoh Datetime Function
 - `COUNT, MAX, MIN, AVG` = Contoh Aggregate Function
+
+## View
+
+- `CREATE VIEW [view] AS [query]` = Membuat View
+- `SELECT [column] FROM [view]` = Memanggil View
 
 ## Sequence
 

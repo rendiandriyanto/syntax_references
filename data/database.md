@@ -1,6 +1,6 @@
 # Database
 
-![Database](images/database.png)
+![Database](../images/database.png)
 
 Image by [juicy_fish](https://www.freepik.com/icon/database_17069564#fromView=keyword&page=1&position=22&uuid=bf4fe23c-c479-4fed-a23f-9671003456ab)
 
