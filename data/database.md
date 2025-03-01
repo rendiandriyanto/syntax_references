@@ -65,3 +65,12 @@ Kardinalitas / Derajat Relasi :
 3. Third Normal Form = Membuat tabel jika ada atribut yang tidak bergantung pada Attribute Key (A->B)
 
 Denormalisasi data = Melanggar aturan normalisasi data untuk tujuan Read dengan lebih cepat
+
+## Partitioning Data & ETL-ELT
+
+Partitioning Data dapat dibagi menjadi 2 yaitu :
+
+- Vertical Partitioning = Records dapat di partisi berdasarkan banyaknya kolom
+- Horizontal Partitioning = Recods dapat di partisi berdasarkan records itu sendiri seperti waktu atau teks (jika diproses pada lokasi proses yang berbeda maka disebut dengan Sharding)
+
+> ETL & ELT terkadang diperlukan untuk menjaga agar data tetap konsisten

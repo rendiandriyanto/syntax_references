@@ -73,16 +73,22 @@ Credits :
 - `TRUNCATE [table];` = Untuk menghapus seluruh data pada suatu tabel
 - `DROP TABLE [table];` = Untuh menghapus tabel
 - `ALTER TABLE [table]` = Mengubah struktur tabel / DDL
+- `ALTER COLUMN TYPE [datatype]` = Mengubah tipe data suatu kolom
+- `ALTER COLUMN SET [constraint]` = Mengubah batasan pada suatu kolom
 - `ADD COLUMN [column] [datatype];` = Menambahkan kolom baru
 - `DROP COLUMN [column];` = Menghapus kolom
 - `RENAME COLUMN [column] TO [column];` = Mengubah nama kolom
 - `ADD PRIMARY KEY ([column]);` = Menambahkan Primary Key pada column yang sudah dibuat
 - `NOT NULL;` = Digunakan untuk Mandatory Attribute
 - `DEFAULT [value];` = Digunakan untuk menambahkan nilai pada Value secara Default
+- `PARTITION BY RANGE([table])` = Contoh cara menentukan partisi
+- `PARTITION OF [table] FOR VALUES FROM ([condition]) TO ([condition])` = Contoh partisi tabel horizontal
+- `PARTITION OF [table] FOR VALUES IN ([condition])` = Contoh 2 partisi tabel horizontal
 
 ## DML
 
 - `INSERT INTO [table] (column) VALUES (data);` = Memasukkan data ke tabel
+- `INSERT INTO [table] [migrate]` = Memindahkan data dari suatu tabel ke tabel lain
 - `SELECT [column] FROM [table];` = Melihat data pada tabel
 - `WHERE [column] [value];` = Mencari data spesifik
 - `UPDATE [table] SET [column] WHERE [column];` = Mengubah data
@@ -98,13 +104,18 @@ Credits :
 - `SELECT DISTINCT [column] FROM [table];` = Menghasilkan Output unik yang tidak duplikat
 - `+ - * / %` = Operasi matematika pada SQL
 - `LOWER, UPPER, LENGTH` = Contoh String Function
-- `EXTRACT([YEAR/MONTH/DATE] FROM [column])` = Contoh Datetime Function
+- `EXTRACT([YEAR/MONTH/DAY] FROM [column])` = Contoh Datetime Function
 - `COUNT, MAX, MIN, AVG` = Contoh Aggregate Function
 
 ## View
 
 - `CREATE VIEW [view] AS [query]` = Membuat View
+- `CREATE OR REPLACE VIEW [view] AS [query]` = Mendefinisikan ulang View selagi memiliki kolom sebelumnya
+- `CREATE MATERIALIZED VEIW [view] AS [query]` = Membuat View yang berbasis pada hasil Query
+- `REFRESH MATERIALIZED VIEW [view]` = Me-Refresh View agar data uptodate
 - `SELECT [column] FROM [view]` = Memanggil View
+- `DROP VIEW [view]` = Menghapus View
+- `DROP VIEW [view] [RESTRICT/CASCADE]` = Menghapus View dengan menggunakan Behavior
 
 ## Sequence
 
@@ -128,6 +139,7 @@ Credits :
 
 - `CONSTRAINT [constraint] UNIQUE ([column]);` = Membuat data suatu kolom menjadi unik
 - `CONSTRAINT [constraint] CHECK ([column] [condition]);` = Membuat agar kolom tetap valid
+- `CONSTRAINT [constraint] PRIMARY KEY ([column])` = Memberi Primary Key dengan cara lain
 - `DROP CONSTRAINT [constraint];` = Menghapus Constraint pada tabel tertentu
 
 ## INDEX & FULL TEXT SEARCH
@@ -143,7 +155,8 @@ Credits :
 - `CONSTRAINT [constraint] FOREIGN KEY ([column]) REFERENCES [table] ([column]);` = Menambahkan Foreign Key
 - `ON DELETE/UPDATE RESTRICT/CASCADE/NO ACTION/SET NULL/SET DEFAULT` = Behavior Constraint
 - `JOIN [table] ON [table].[column] = [table].[column] JOIN ~;` = Menggabungkan 2 tabel atau lebih
-- `INNER - LEFT - RIGHT - FULL` = Macam-macam Join
+- `INNER - LEFT - RIGHT - FULL - CROSS - SELF` = Macam-macam Join
+- `USING([column])` = Dapat digunakan jika terdapat nama kolom yang sama
 - `SELECT * FROM [table] WHERE [table] [condition] ([sub]);` = Sub Query dari Where Clause
 - `SELECT * FROM ([sub]) AS [as];` = Sub Query dari From Clause
 - `UNION - UNION ALL - INTERSECT - EXCEPT` = Macam-macam Set operator
@@ -162,6 +175,7 @@ Credits :
 - `CREATE ROLE [role];` = Membuat Role
 - `DROP ROLE [role];` = Menghapus Role
 - `ALTER ROLE [role] [option];` = Memberikan opsi seperti Login / Password
+- `GRANT [group_role] TO [role]` = Grouping Role
 - `GRANT [access] ON ALL TABLES IN SCHEMA [schema] TO [role];` = Memberikan seluruh akses tabel
 - `GRANT [access] ON [tables] TO [role];` = Memberikan akses ke suatu tabel
 - `GRANT [access] ON [tables] FROM [role];` = Menghapus akses suatu Role
