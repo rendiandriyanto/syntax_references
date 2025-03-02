@@ -66,7 +66,7 @@ Kardinalitas / Derajat Relasi :
 
 Denormalisasi data = Melanggar aturan normalisasi data untuk tujuan Read dengan lebih cepat
 
-## Partitioning Data & ETL-ELT
+## Partitioning Data & ETL-ELT & Top-Down Bottop-Up Approach
 
 Partitioning Data dapat dibagi menjadi 2 yaitu :
 
@@ -74,3 +74,8 @@ Partitioning Data dapat dibagi menjadi 2 yaitu :
 - Horizontal Partitioning = Recods dapat di partisi berdasarkan records itu sendiri seperti waktu atau teks (jika diproses pada lokasi proses yang berbeda maka disebut dengan Sharding)
 
 > ETL & ELT terkadang diperlukan untuk menjaga agar data tetap konsisten
+
+Pada Flow dalam Pipeline terdapat 2 Approach yang dapat digunakan yaitu :
+
+- Top-Down / Inmon Approach = Data Warehouse -> Data Mart
+- Bottom-Up / Kimball Approach = Data Mart -> Data Warehouse

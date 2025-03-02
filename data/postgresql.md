@@ -24,6 +24,7 @@ Credits :
 - `\du` = Melihat seluruh Role
 - `\d` = Melihat seluruh struktur yang telah dibuat pada Database
 - `\d [table]` = Untuk melihat struktur data tabel
+- `\d+ [table]` = Melihat seluruh struktur data tabel
 
 *Syntax* :
 
@@ -73,6 +74,7 @@ Credits :
 - `TRUNCATE [table];` = Untuk menghapus seluruh data pada suatu tabel
 - `DROP TABLE [table];` = Untuh menghapus tabel
 - `ALTER TABLE [table]` = Mengubah struktur tabel / DDL
+- `ALTER TABLE IF EXISTS [table]` = Memastikan perintah dijalankan jika tabel benar-benar ada
 - `ALTER COLUMN TYPE [datatype]` = Mengubah tipe data suatu kolom
 - `ALTER COLUMN SET [constraint]` = Mengubah batasan pada suatu kolom
 - `ADD COLUMN [column] [datatype];` = Menambahkan kolom baru
@@ -84,6 +86,8 @@ Credits :
 - `PARTITION BY RANGE([table])` = Contoh cara menentukan partisi
 - `PARTITION OF [table] FOR VALUES FROM ([condition]) TO ([condition])` = Contoh partisi tabel horizontal
 - `PARTITION OF [table] FOR VALUES IN ([condition])` = Contoh 2 partisi tabel horizontal
+- `COMMENT ON [object] [object name] IS ['message']` = Memberi deskripsi pada tabel atau yang lain nya
+- `MERGE INTO [table target] AS [as] USING [table source] AS [as] ON [PK] WHEN MATCHED THEN [update/insert] WHEN NOT MATCHED THEN [update/insert]` = Menggabungkan 2 tabel dan memperbarui tabel target
 
 ## DML
 
@@ -184,3 +188,22 @@ Credits :
 
 - `pg_dump -h [host] -p [port] -d [db] --format=plain -f [loc] -U [user] -W` = Backup
 - `psql -h [host] -p [port] -d [db] -f [loc] -U [user] -W` = Restore
+
+## Snowflake SQL (SnowSQL)
+
+- `CREATE STAGE [stage]` = Membuat Stage
+- `PUT file:///[path]/[file] @[stage]` = Menaruh file pada Staging Area
+- `ALTER TABLE IF EXISTS [table]` = Untuk memastikan Query berjalan jika tabel nya ada
+- `[column] COMMENT [message] / [table] COMMENT =` = Memberi komentar pada kolom atau tabel
+- `SHOW DATABASES` = Melihat seluruh Database
+- `SHOW TABLES IN DATABASE [database]` = Melihat seluruh tabel pada suatu Database
+- `SHOW COLUMNS IN [table]` = Melihat seluruh kolom
+- `SHOW VIEWS IN DATABASE [database]` = Melihat seluruh View
+- `SHOW SCHEMAS IN DATABASE [database]` = Melihat seluruh Schema
+- `DESC DATABASE [database]` = Melihat detail dari database
+- `DESC TABLE [table]` = Melihat detail dari tabel
+- `DESC VIEW [view]` = Melihat detail dari View
+- `DESC STAGE [stage]` = Melihat detail Stage Area
+- `COPY INTO [table] FROM @[stage]/[file] FILE_FORMAT=(TYPE=[file type] skip_header=1)` = Memindahkan dari Staging Area ke dalam tabel
+- `NATURAL / LATERAL JOIN` = Natural menghapus kolom duplikat jika mengambil seluruh kolom (*) dan Lateral adalah cara mengambil data dari Query
+- `CTE` = Common Table Expressions dengan menggunakan kata kunci WITH AS
