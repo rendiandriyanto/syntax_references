@@ -419,6 +419,72 @@ WHERE field_3 = value
     );
 ```
 
+### INSERT DATA
+
+```sql
+-- menambahkan data secara manual
+INSERT INTO table (field_1, field_2)
+VALUES (value_1, value_2);
+```
+
+```sql
+-- migrasi data dari tabel lama ke tabel baru (pilihan Field tergantung kondisi)
+INSERT INTO new_table
+SELECT DISTINCT field_1, field_2
+FROM old_table;
+```
+
+### INFORMATION SCHEMA
+
+```sql
+-- mengambil informasi dari seluruh tabel yang ada pada Database, baik itu dari public, pg_catalog dan information_schema
+SELECT table_schema, table_name
+FROM information_schema.tables;
+```
+
+```sql
+-- mengambil data dari seluruh Field yang ada pada tabel tersebut
+SELECT table_name, column_name, data_type
+FROM information_schema.columns
+WHERE table_name = table;
+```
+
+### CREATE TABLE
+
+```sql
+-- membuat tabel pada database
+CREATE TABLE table (
+    field type
+);
+```
+
+### ALTER TABLE
+
+```sql
+-- menambahkan Field jika tabel sudah terlanjur dibuat
+ALTER TABLE table
+ADD COLUMN field type;
+```
+
+```sql
+-- merubah nama Field
+ALTER TABLE table
+RENAME COLUMN old_field TO new_field;
+```
+
+```sql
+-- menghapus sebuah Field
+ALTER TABLE table
+DROP COLUMN field;
+```
+
+### DROP TABLE
+
+```sql
+-- menghapus tabel yang sudah tidak diperlukan
+DROP TABLE table;
+```
+
 ### VIEW
 
 ```sql
