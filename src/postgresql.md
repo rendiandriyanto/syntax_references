@@ -25,8 +25,14 @@ Dan ada juga yang namanya Result Set yang artinya adalah kumpulan hasil dari sua
 Tipe data terbagi menjadi banyak tipe, berikut adalah tipe data yang paling sering digunakan :
 
 - VARCHAR (String) = Tipe data untuk karakter seperti huruf, angka, ataupun tanda baca
+- CHAR (Character) = Sama seperti VARCHAR tetapi lebih diperuntukan untuk panjang yang tetap
+- TEXT = Tipe data untuk String dengan panjang berapapun
 - INT (Integer) = Tipe data untuk bilangan bulat
 - NUMERIC (Float) = Tipe data untuk bilangan pecahan
+- DATE = Tipe data untuk tanggal dengan format YYYY-MM-DD
+- TIME = Tipe data untuk waktu dengan format HH:mm:ss
+- TIMESTAMP = Tipe data untuk tanggal dan waktu (dapat ditambahkan TZ untuk Timezone)
+- BOOLEAN = Tipe data untuk nilai TRUE atau FALSE dan 1 atau 0 (dan NULL)
 
 ## Query
 
@@ -434,6 +440,22 @@ SELECT DISTINCT field_1, field_2
 FROM old_table;
 ```
 
+### UPDATE DATA
+
+```sql
+-- mengupdate data yang yang ada pada sebuah Record
+UPDATE table
+SET field_1 = value_1
+WHERE field_2 = value_2;
+
+```
+
+```sql
+-- mengupdate data menggunakan Field yang sudah ada dan digabungkan menggunakan CONCAT
+UPDATE table
+SET field_1 = CONCAT(field_1, field_2);
+```
+
 ### INFORMATION SCHEMA
 
 ```sql
@@ -478,11 +500,87 @@ ALTER TABLE table
 DROP COLUMN field;
 ```
 
+```sql
+-- mengubah tipe data suatu Field
+ALTER TABLE table
+ALTER COLUMN field
+TYPE type;
+```
+
+```sql
+-- menggunakan USING untuk data numerik
+ALTER TABLE table
+ALTER COLUMN field
+TYPE type
+USING ROUND(field, value);
+```
+
+```sql
+-- menggunakan USING untuk data numerik
+ALTER TABLE table
+ALTER COLUMN field
+TYPE type
+USING SUBSTRING(field FROM 1 FOR value);
+```
+
+```sql
+-- menambahkan NOT NULL pada kolom
+ALTER TABLE table
+ALTER COLUMN field
+SET NOT NULL;
+```
+
+```sql
+-- menghapus NOT NULL pada kolom
+ALTER TABLE table
+ALTER COLUMN field
+DROP NOT NULL;
+```
+
+```sql
+-- menambahkan CONSTRAINT UNIQUE untuk membuat suatu Field menjadi unik
+ALTER TABLE table
+ADD CONSTRAINT constraint UNIQUE (field);
+```
+
+```sql
+-- menambahkan PRIMARY KEY pada suatu Field tanpa nama eksplisit
+ALTER TABLE table
+ADD PRIMARY KEY (field);
+```
+
+```sql
+-- menambahkan PRIMARY KEY pada suatu Field dengan menggunakan nama eksplisit
+ALTER TABLE table
+ADD CONSTRAINT constraint PRIMARY KEY (field);
+```
+
+```sql
+-- menambahkan FOREIGN KEY pada tabel
+ALTER TABLE table_1
+ADD CONSTRAINT constraint FOREIGN KEY (field_1) REFERENCES table_2 (field_2);
+```
+
+```sql
+-- membuat Behavior Delete/Update menjadi CASCADE (data yang dihapus/diubah pada tabel A, juga akan dihapus/diubah pada tabel B)
+ALTER TABLE table_1
+ADD CONSTRAINT constraint FOREIGN KEY (field_1) REFERENCES table_2 (field_2)
+ON DELETE/UPDATE CASCADE;
+```
+
 ### DROP TABLE
 
 ```sql
 -- menghapus tabel yang sudah tidak diperlukan
 DROP TABLE table;
+```
+
+### CASTING DATA
+
+```sql
+-- untuk mengubah tipe data (misalnya untuk kebutuhan operasi matematika)
+SELECT field_1 * CAST(field_2 AS type) AS alias
+FROM table;
 ```
 
 ### VIEW

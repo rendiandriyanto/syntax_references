@@ -76,3 +76,16 @@ Parallel Processing digunakan untuk membagi beban kerja dalam sebuah proses yang
 ## Cloud Computing
 
 Provider Cloud menyediakan alternatif yang dapat digunakan untuk menghemat biaya dibandingkan dengan On-Premise Server
+
+## OLTP & OLAP
+
+- *OLTP* = Online Transaction Processing adalah Database yang biasa digunakan untuk keperluan operasional
+- *OLAP* = Online Analytical Processing adalah Database digunakan untuk keperluan analisis Ad-Hoc
+
+## ETL vs ELT
+
+Pada *ETL*, data di Transform sebelum masuk ke Data Warehouse untuk di-analisa. Pada *ELT*, data di Load sebelum di Transform (misalnya untuk keperluan Big Data Analytics)
+
+## Data Mart
+
+Data Mart adalah lokasi akhir setelah Data Warehouse jika diperlukan untuk tiap masing-masing Stakeholder agar memiliki data akhir yang spesifik
