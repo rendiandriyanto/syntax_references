@@ -471,6 +471,13 @@ FROM information_schema.columns
 WHERE table_name = table;
 ```
 
+```sql
+-- mengambil data dari seluruh View yang ada (dengan mengecualikan tampilan dari sistem)
+SELECT *
+FROM information_schema.views
+WHERE table_schema NOT IN ('information_schema', 'pg_catalog');
+```
+
 ### CREATE TABLE
 
 ```sql
@@ -516,7 +523,7 @@ USING ROUND(field, value);
 ```
 
 ```sql
--- menggunakan USING untuk data numerik
+-- menggunakan USING untuk data karakter yang diperpendek
 ALTER TABLE table
 ALTER COLUMN field
 TYPE type
@@ -596,4 +603,120 @@ FROM table;
 -- memanggil VIEW yang telah dibuat
 SELECT *
 FROM view;
+```
+
+```sql
+-- menimpa View yang ada dengan syarat kondisi View wajib sama seperti sebelumnya dan Field baru ditambahkan di akhir
+CREATE OR REPLACE VIEW view_new AS
+SELECT field_1, field_2
+FROM view_old;
+```
+
+### MATERIALIZED VIEW
+
+```sql
+-- membuat Materialized View dengan tujuan View yang diperbarui secara berkala (misalnya karena Query dari View sangat lama)
+CREATE MATERIALIZED VIEW view AS
+SELECT field_1, field_2
+FROM table;
+```
+
+```sql
+-- memperbarui Materialized View
+REFRESH MATERIALIZED VIEW view;
+```
+
+### USER CONTROLLER
+
+Pada User Controller ini, ada cara untuk memeberi akses dan menghapus akses pada suatu Role :
+
+```sql
+-- memberi akses
+GRANT privilege ON object TO role
+```
+
+```sql
+-- menghapus akses
+REVOKE privilege ON object FROM role
+```
+
+Contoh pada Privilege dapat berupa :
+
+- `SELECT`
+- `INSERT`
+- `UPDATE`
+- `DELETE`
+
+Kemudian pada Object dapat berupa :
+
+- Table
+- View
+- Schema
+- etc
+
+Terakhir pada `role` yaitu User/Group yang diberi mandat
+
+### ROLE
+
+```sql
+-- membuat Role
+CREATE ROLE role;
+```
+
+```sql
+-- contoh memberi peran lebih pada Role
+CREATE ROLE role WITH LOGIN PASSWORD 'password' CREATEDB CREATEROLE VALID UNTIL '1970-1-1';
+```
+
+```sql
+-- mengubah peran Role jika telah dibuat
+ALTER ROLE role WITH LOGIN;
+```
+
+```sql
+-- menambahkan suatu Role ke Group Role
+GRANT group_role TO role;
+```
+
+```sql
+-- menghapus suatu Role dari Group Role
+REVOKE group_role FROM role;
+```
+
+### PARTITIONING
+
+Terdapat 2 cara pada partisi yaitu Vertical dan Horizontal :
+
+- Vertical = Mempartisi secara kolom (jika ada kolom yang dapat membuat tabel menjadi lambat jika di Query)
+- Horizontal = Biasanya dipartisi berdasarkan waktu (misalnya per-tahun atau per-kuartal), jika diproses ditempat lain untuk Parallel Processing maka disebut dengan Sharding
+
+```sql
+-- contoh cara membuat tabel yang dapat dipartisi menggunakan RANGE
+CREATE TABLE table (
+    field type
+) PARTITION BY RANGE (field);
+```
+
+```sql
+-- contoh cara membuat tabel yang dapat dipartisi menggunakan RANGE
+CREATE TABLE table (
+    field type
+) PARTITION BY LIST (field);
+```
+
+```sql
+-- contoh cara membuat tabel misalnya untuk kuartal 3 tahun 2025 menggunakan FROM TO
+CREATE TABLE table_2025_q3 PARTITION OF table
+    FOR VALUES FROM (value_1) TO (value_2);
+```
+
+```sql
+-- contoh cara membuat tabel misalnya untuk kuartal 3 tahun 2025 menggunakan IN
+CREATE TABLE table_2025_q3 PARTITION OF table
+    FOR VALUES IN (value);
+```
+
+```sql
+-- disarankan untuk menambahkan Index pada Field yang telah dipartisi
+CREATE INDEX ON table ('field');
 ```

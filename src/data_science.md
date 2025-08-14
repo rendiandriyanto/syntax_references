@@ -89,3 +89,22 @@ Pada *ETL*, data di Transform sebelum masuk ke Data Warehouse untuk di-analisa. 
 ## Data Mart
 
 Data Mart adalah lokasi akhir setelah Data Warehouse jika diperlukan untuk tiap masing-masing Stakeholder agar memiliki data akhir yang spesifik
+
+## Fact Table & Dimensional Table
+
+Fact Table adalah tabel yang berisi data metrik didalamnya, dan Dimensional Table berisi data yang lebih spesifik
+
+## Star Schema vs Snowflake Schema
+
+Ada 2 skema yang populer pada Database Design :
+
+- Star Schema = Biasa digunakan pada Data Warehouse untuk keperluan OLAP
+- Snowflake Schema = Digunakan pada Database Transactional yang memerlukan presisi data yang tinggi
+
+## 1NF > 2NF > 3NF
+
+Pada normalisasi data berdasarkan [Edgar F. Codd](https://en.wikipedia.org/wiki/Edgar_F._Codd), minimal ada 3 normalisasi yang setidaknya diketahui :
+
+1. 1NF = Setiap Record tidak boleh ada yang memiliki 2 nilai atau lebih
+2. 2NF = Setiap Field harus bergantung ke Field Key
+3. 3NF = Setiap Field tidak boleh ada yang bergantung pada Field Non-Key lainnya
