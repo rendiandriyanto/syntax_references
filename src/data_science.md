@@ -86,6 +86,20 @@ Provider Cloud menyediakan alternatif yang dapat digunakan untuk menghemat biaya
 
 Pada *ETL*, data di Transform sebelum masuk ke Data Warehouse untuk di-analisa. Pada *ELT*, data di Load sebelum di Transform (misalnya untuk keperluan Big Data Analytics)
 
+### Kelebihan dan Kekurangan ETL
+
+- Biaya Data Storage menjadi rendah
+- Dapat dengan mudah mematuhi privasi data (PII)
+- Jika transformasi Error maka harus mengambil data ulang
+- Tidak dapat menyimpan data asli karena sudah ditransformasi (dapat mengabaikan Transform jika beberapa data tidak ingin diubah)
+
+### Kelebihan dan Kekurangan ELT
+
+- Tidak butuh sistem yang berbeda pada pemrosesan data
+- Transformasi dapat dilakukan tanpa harus mengambil datanya secara ulang
+- Biaya/kapasitas menjadi besar karena langsung menyimpan data pada Data Warehouse tanpa diproses
+- Sulit mematuhi privasi data (PII) karena data tersebut langsung di Load tanpa di Transform terlebih dahulu
+
 ## Data Mart
 
 Data Mart adalah lokasi akhir setelah Data Warehouse jika diperlukan untuk tiap masing-masing Stakeholder agar memiliki data akhir yang spesifik
@@ -108,3 +122,42 @@ Pada normalisasi data berdasarkan [Edgar F. Codd](https://en.wikipedia.org/wiki/
 1. 1NF = Setiap Record tidak boleh ada yang memiliki 2 nilai atau lebih
 2. 2NF = Setiap Field harus bergantung ke Field Key
 3. 3NF = Setiap Field tidak boleh ada yang bergantung pada Field Non-Key lainnya
+
+## Top-Down Architecture vs Bottom-Up Architecture
+
+Terdapat 2 Approach pada arsitektur Data Warehouse, berikut masing-masing kelebihan dan kekurangannya :
+
+### Inmon Approach (Top-Down)
+
+- Data dikumpulkan dulu di Data Warehouse setelah proses *ETL* kemudian disebar ke Data Mart untuk di Consume oleh aplikasi atau User
+- Data pada Data Warehouse dinormalisasi dengan tujuan integrasi kebenaran data mutlak
+- Mudah dikelola jika memerlukan kebutuhan Data Mart
+
+### Kimball Approach (Bottom-Up)
+
+- Data langsung dimasukan kedalam Data Mart kemudian dikumpulkan kedalam Data Warehouse untuk di Consume
+- Pada data Data Mart dan Data Warehouse, data didenormalisasi untuk keperluan Query yang cepat
+- Lebih cepat beroperasi namun lebih sulit untuk dikelola (misalnya membutuhkan Data Mart baru)
+
+## Data Modeling
+
+Ada 4 proses pada Data Modeling yang disebut sebagai Kimball's Four Step Process, yaitu :
+
+1. Tentukan bisnis proses apa yang dibutuhkan disetiap Data Mart
+2. Tentukan Grain/data yang akan terkandung dalam setiap Row
+3. Tentukan Dimentional Table nya
+4. Tentukan Fact Table nya
+
+Kemudian ada 4 macam SCD (Slowly Changing Dimensions) atau cara mengubah data lama pada Dimentional Table agar tetap selaras dengan data terbaru :
+
+- Type I = Mengubah langsung data tersebut (tetapi memiliki resiko History data tidak konsisten dengan data terbaru)
+- Type II = Menambahkan data pada Row (data baru merujuk pada Row terbaru)
+- Type III = Menambahkan kolom/Field baru (data merujuk pada kapan data itu dibuat)
+- Modern Approach = Seperti tipe I tetapi data di Snapshot terlebih dahulu sebelum diubah
+
+## Data Warehouse Workflow
+
+1. Tentukan apakah Inmon Approach atau Kimball Approach?
+2. Gunakan Kimball's Four Step Process
+3. On-Premise atau Cloud
+4. ETL atau ELT
