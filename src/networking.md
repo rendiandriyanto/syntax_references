@@ -15,7 +15,10 @@ Image by [Eucalyp](https://www.magnific.com/icon/computer_3598209)
 **Versi** :
 
 - *IPv4* = Menggunakan format 32-bit (contoh 35.74.126.45), 4 blok dari rentang angka 0 - 255.
-- *IPv6* = Menggunakan format 128-bit (contoh 2001:db8:86a7::37:7469), 8 blok dari rentang 0000 - ffff.
+- *IPv6* = Menggunakan format 128-bit (contoh 2001:0db8:86a7:0000:0000:0000:0037:7469), 8 blok dari rentang 0000 - ffff. Pada contoh tersebut, ada 2 aturan yaitu :
+
+1. Jika didepannya terdapat angka 0 maka dapat dihilangkan seperti 0db8 menjadi db8.
+2. Jika ada angka 0 berurut seperti 86a7:0000:0000:0000:0037 seperti contoh diatas, maka dapat disingkat menjadi 86a7::37 (namun hanya dapat digunakan sekali).
 
 **Aksesibilitas** :
 

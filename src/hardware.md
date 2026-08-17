@@ -36,6 +36,10 @@ Image by [Magnific](https://www.magnific.com/icon/motherboard_4862018)
 
 ***Motherboard*** adalah komponen dalam sebuah komputer yang berfungsi sebagai "jalan raya" untuk menghubungkan seluruh komponen Hardware yang terpasang, seluruh komponen Hardware saling berkomunikasi melalui jalur data yang disebut dengan Bus.
 
+## Read-Only Memory (ROM)
+
+***Read-Only Memory*** adalah komponen memori pada sebuah Motherboard. Tugasnya yaitu untuk menyimpan Firmware *BIOS (Basic Input/Output System)* lalu menjalankan *POST (Power-On Self-Test)* dan mengenalkan komponen Hardware lain kepada CPU, kemudian memerintahkan CPU untuk mencari program Bootloader di Storage agar dapat memuat sistem operasi pada RAM.
+
 ## Graphics Processing Unit (GPU)
 
 ***Graphics Processing Unit*** adalah komponen yang dapat melakukan proses/perhitungan sederhana namun secara Parallel untuk data yang masif, dan memiliki ribuan Core/inti didalamnya. Tidak seperti CPU yang melakukan proses/perhitungan secara berurutan/Sequential, GPU melakukan proses/perhitungan tersebut secara bersamaan/Parallel dalam satu waktu. GPU juga dapat berkomunikasi dengan komponen yang bernama VRAM (Video Random Access Memory), jika RAM digunakan untuk menyimpan instruksi umum, maka VRAM digunakan untuk menyimpan instruksi yang berkaitan dengan Visual.
