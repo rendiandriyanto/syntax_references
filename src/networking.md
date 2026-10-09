@@ -60,3 +60,30 @@ Berikut adalah penjelasan tentang cara Subnetting untuk `192.168.10.69/27` kelas
 5. **Mencari batas blok Subnet** = Menggunakan hapalan seperti `/24=256, /25=128, /26=64, /27=32, /28=16 dan seterusnya` atau rumus `256 - nilai desimal oktet terakhir Subnet Mask` yang berarti `256-224 = 32`. Kelompok Subnet akan meloncat setiap 32 angka, dimulai dari 0 seperti `0, 32, 64, 96 dan seterusnya`.
 6. **Network Address** selalu mengambil alamat IP pertama disetiap Subnet. Karena alamat IP diatas adalah `.69`, maka alamat tersebut berada direntang loncatan antara 64 sampai 96, yang artinya Network Address nya adalah `192.168.10.64`.
 7. **Broadcast Address** selalu mengambil alamat IP terakhir disetiap Subnet. Karena alamat IP diatas adalah `.69`, maka alamat tersebut berada direntang loncatan antara 64 sampai 96, yang artinya Broadcast Address nya adalah `192.168.10.95`.
+
+## OSI Model vs TCP/IP Model
+
+Terdapat 2 model yang sering disebut dalam pembelajaran atau implementasi di dunia nyata, yakni ***OSI Model*** dan ***TCP/IP Model***. Berikut adalah perbandingan antar keduanya :
+
+- **OSI (Open Systems Interconnection) Model** = Standar yang dikembangkan oleh *ISO (International Organization for Standardization)* dengan membaginya kedalam 7 lapis/*layer*. Umumnya teoritis dan digunakan untuk materi pembelajaran agar materi lebih padat.
+- **TCP/IP (Transmission Control Protocol/Internet Protocol) Model** = Standar yang dikembangkan oleh *DARPA (Defense Advanced Research Projects Agency)* yakni lembaga dalam *US DoD* sebagai bagian dari proyek *ARPANET*, yang membaginya kedalam 4 lapis/*layer*. Model ini adalah standar yang digunakan di industri saat ini karena kepraktisannya.
+
+Dan berikut adalah perbedaan dan  :
+
+| OSI Layer | OSI Model         | TCP/IP Layer  | TCP/IP Model      | Protocol/Media                        |
+| -----     | -----             | -----         | -----             | -----                                 |
+| 7         | Application       | 4             | Application       | HTTP, HTTPS, FTP, SMTP, DNS           |
+| 6         | Presentation      | 4             | Application       | JPEG, ASCII, SSL/TLS, MPEG            |
+| 5         | Session           | 4             | Application       | NetBIOS, RPC, PPTP                    |
+| 4         | Transport         | 3             | Transport         | TCP, UDP                              |
+| 3         | Network           | 2             | Internet          | IP (IPv4/IPv6), ICMP, Router          |
+| 2         | Data Link         | 1             | Network Access    | MAC Address, Switch, Ethernet         |
+| 1         | Physical          | 1             | Network Access    | UTP cable, Fiber Optic, Hub, Wi-Fi    |
+
+- All = Menyediakan antarmuka komunikasi antara aplikasi pengguna dengan jaringan.
+- People = Menerjemahkan format data, melakukan kompresi, dan enkripsi/dekripsi keamanan.
+- Seem = Membuka, menjaga, dan mengakhiri sesi komunikasi antar perangkat.
+- To = Memecah data menjadi paket kecil, mengirimkannya, dan menyusunnya kembali di tempat tujuan. Juga mengontrol aliran data (flow control) dan memeriksa eror.
+- Need = Menentukan rute perjalanan data (*Routing*) dan mengelola *IP Address*.
+- Data = Mengelompokkan data ke dalam format frame, mendeteksi kesalahan fisik, dan mengelola alamat fisik perangkat keras.
+- Processing = Mengirimkan data mentah berbentuk bit digital (0 dan 1) melalui media transmisi fisik berupa kabel, gelombang radio, atau cahaya.
