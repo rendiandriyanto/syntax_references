@@ -87,3 +87,5 @@ Dan berikut adalah perbedaan dan  :
 - Need = Menentukan rute perjalanan data (*Routing*) dan mengelola *IP Address*.
 - Data = Mengelompokkan data ke dalam format frame, mendeteksi kesalahan fisik, dan mengelola alamat fisik perangkat keras.
 - Processing = Mengirimkan data mentah berbentuk bit digital (0 dan 1) melalui media transmisi fisik berupa kabel, gelombang radio, atau cahaya.
+
+Untuk **pengirim (misalnya Client)**, proses berjalan dari atas ke bawah atau biasa disebut dengan ***Encapsulation***. Dan untuk **penerima (misalnya Server)**, proses berjalan dari bawah ke atas atau biasa disebut dengan ***Decapsulation***.
