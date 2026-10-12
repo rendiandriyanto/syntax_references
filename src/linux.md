@@ -105,6 +105,11 @@ touch -t YYYYMMDDhhmm.ss [file]
 cat [file]
 ```
 
+```bash
+# Melihat isi File tanpa harus membuka Text Editor dengan Flag Number untuk melihat nomor baris
+cat -n [file]
+```
+
 ### Copy File or Directory
 
 ```bash
@@ -166,4 +171,228 @@ echo [message] > [file]
 ```bash
 # Menulis dengan menambahkan/Append tulisan dibaris paling bawah
 echo [message] >> [file]
+```
+
+### Read Oldest, Newest and Global Regular Expression Print
+
+```bash
+# Melihat 10 baris pertama dari suatu File
+head [file]
+```
+
+```bash
+# Melihat 10 baris terakhir dari suatu File
+tail [file]
+```
+
+```bash
+# Melihat 10 baris terakhir dari suatu File dengan Real-Time menggunakan Flag Follow
+tail -f [file]
+```
+
+```bash
+# Melihat 50 baris pertama/terakhir dari suatu File menggunakan Flag Number
+[head/tail] -n 50 [file]
+```
+
+```bash
+# Contoh menyambungkan Command pertama ke Command kedua menggunakan Pipe
+[cat/head/tail] [file] | grep [message]
+```
+
+```bash
+# Mencari kata kunci tertentu dari suatu File
+grep [message] [file]
+```
+
+```bash
+# Mencari kata kunci tertentu dari suatu File menggunakan Flag Ignore Case atau Case Insensitive
+grep -i [message] [file]
+```
+
+```bash
+# Mencari kata kunci tertentu dari suatu File menggunakan Flag Number untuk melihat nomor baris yang dicari
+grep -n [message] [file]
+```
+
+```bash
+# Mencari kata kunci tertentu dari suatu File menggunakan Flag Regular Expression agar GREP dapat mengenali tanda dash/-
+grep -e [-message] [file]
+```
+
+```bash
+# Menggunakan kata kunci tertentu dari suatu File menggunakan Flag Ignore Case, Number dan Regular Expression sekaligus
+grep -ine [message] [file]
+```
+
+```bash
+# Contoh membuat File baru dengan hasil dari pencarian
+grep [message] [file] > [file]
+```
+
+### Find File
+
+```bash
+# Mencari File dengan nama Case Sensitive
+find [directory] -name "[file]"
+```
+
+```bash
+# Mencari File dengan nama Case Insensitive
+find [directory] -iname "[file]"
+```
+
+```bash
+# Mencari File dengan nama Case Insensitive dan Wildcard
+find [directory] -iname "[*.file]"
+```
+
+## User
+
+```bash
+# Melihat User (manusia) yang tersedia
+cat /etc/passwd | grep -ie "/home/"
+```
+
+```bash
+# Menambahkan User baru beserta Home Directory-nya
+sudo useradd -m [user]
+```
+
+```bash
+# Memberi Password pada User
+sudo passwd [user]
+```
+
+```bash
+# Menghapus User beserta Home Directory-nya
+sudo deluser --remove-home [user]
+```
+
+```bash
+# Pindah ke User lain
+su - [user]
+```
+
+## File Permissions
+
+- `-rwxrw-r--` = Contoh izin dari sebuah File
+- `drwxrw-r--` = Contoh izin dari sebuah Directory
+
+1. Karakter pertama dapat berupa `-` atau `d` yang menandakan bahwa itu adalah File atau Directory
+2. Ketiga karakter selanjutnya atau `rwx` adalah milik User/Owner
+3. Ketiga karakter selanjutnya atau `rw-` adalah milik Group
+4. Ketiga karakter selanjutnya atau `r--` adalah milik Others
+
+### Symbolic Mode and Octal Notation
+
+| Subject           | Action    | Permissions   |
+| -----             | -----     | -----         |
+| `u` (user/owner)  | `+` (add) | `r` (read)    |
+| `g` (group)       | `-` (sub) | `w` (write)   |
+| `o` (others)      | `=` (set) | `x` (execute) |
+| `a` (all)         |           | `` (clear)    |
+
+| Permissions       | Symbol    | Value         |
+| -----             | -----     | -----         |
+| Read              | `r`       | 4             |
+| Write             | `w`       | 2             |
+| Execute           | `x`       | 1             |
+| None              | `-`       | 0             |
+
+### Change Mode
+
+```bash
+# Contoh penggunaan Symbolic Mode pada File dengan -rwxr-x--x (memberikan hak eksekusi pada semua pengguna)
+chmod +x [file]
+```
+
+```bash
+# Contoh penggunaan Symbolic Mode pada File dengan -rw----r--
+chmod u=rw,g=,o=r [file]
+```
+
+```bash
+# Contoh penggunaan Octal Notation pada File dengan -rw----r--
+chmod 604 [file]
+```
+
+### Change Owner
+
+```bash
+# Mengubah kepemilikan suatu File ke Owner baru (wajib menggunakan SuperUser DO)
+sudo chown [owner] [file]
+```
+
+```bash
+# Mengubah kepemilikan suatu File ke Owner dan Group baru (wajib menggunakan SuperUser DO)
+sudo chown [owner]:[group] [file]
+```
+
+## Process Management
+
+### Background Process
+
+```bash
+# Menampilkan daftar seluruh proses yang sedang berjalan di sistem secara detail
+ps aux
+```
+
+```bash
+# Menampilkan daftar suatu proses yang sedang berjalan menggunakan GREP
+ps aux | grep -ie [message]
+```
+
+### Force Stop
+
+```bash
+# Menghentikan suatu proses menggunakan Process ID
+kill [pid]
+```
+
+```bash
+# Menghentikan suatu proses secara paksa menggunakan Process ID dan Flag Force Kill
+kill -9 [pid]
+```
+
+### Service / Daemon
+
+```bash
+# Mengecek layanan sedang berjalan
+systemctl status
+```
+
+```bash
+# Mengecek apakah suatu layanan sedang berjalan atau tidak
+systemctl status [service]
+```
+
+```bash
+# Menjalankan layanan secara manual
+sudo systemctl start [service]
+```
+
+```bash
+# Membuat layanan berjalan otomatis saat Server Reboot
+sudo systemctl enable [service]
+```
+
+```bash
+# Menghentikan layanan yang sedang berjalan
+sudo systemctl stop [service]
+```
+
+```bash
+# Membuat layanan tidak berjalan otomatis saat Server Reboot
+sudo systemctl disable [service]
+```
+
+```bash
+# Menghentikan total seluruh layanan lalu menjalankannya lagi dari awal (Less Downtime)
+sudo systemctl restart [service]
+```
+
+```bash
+# Membaca ulang berkas konfigurasi tanpa menghentikan layanan apapun (Zero Downtime)
+sudo systemctl reload [service]
 ```
