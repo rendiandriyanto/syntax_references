@@ -331,6 +331,23 @@ sudo chown [owner]:[group] [file]
 
 ## Process Management
 
+### Resource Monitoring
+
+```bash
+# Menampilkan total penggunaan RAM dan Swap Memory yang terpakai dan tersisa Flag Human-Readable
+free -h
+```
+
+```bash
+# Menampilkan kapasitas ruang penyimpanan di seluruh partisi dengan Flag Human-Readable
+df -h
+```
+
+```bash
+# Menghitung total ukuran suatu Directory secara ringkas dengan Flag Human-Readable dan Flag Summary
+du -sh [directory]
+```
+
 ### Background Process
 
 ```bash
@@ -347,12 +364,17 @@ ps aux | grep -ie [message]
 
 ```bash
 # Menghentikan suatu proses menggunakan Process ID
-kill [pid]
+sudo kill [pid]
+```
+
+```bash
+# Gunakan Kill All jika ingin menghentikan seluruh proses milik User tertentu
+sudo killall -u [user]
 ```
 
 ```bash
 # Menghentikan suatu proses secara paksa menggunakan Process ID dan Flag Force Kill
-kill -9 [pid]
+sudo kill -9 [pid]
 ```
 
 ### Service / Daemon
@@ -388,11 +410,180 @@ sudo systemctl disable [service]
 ```
 
 ```bash
-# Menghentikan total seluruh layanan lalu menjalankannya lagi dari awal (Less Downtime)
+# Menghentikan total suatu layanan lalu menjalankannya lagi dari awal (Less Downtime)
 sudo systemctl restart [service]
 ```
 
 ```bash
 # Membaca ulang berkas konfigurasi tanpa menghentikan layanan apapun (Zero Downtime)
 sudo systemctl reload [service]
+```
+
+## Network
+
+### Remote Server
+
+```bash
+# Digunakan untuk me-Remote menggunakan Secure SHell
+ssh [username]@[ip]
+```
+
+```bash
+# Digunakan untuk me-Remote menggunakan Secure SHell dan Flag Port jika Port SSH telah diubah
+ssh [username]@[ip] -p [port]
+```
+
+### Socket Statistics
+
+```bash
+# Untuk melihat Port yang terbuka dan aplikasi apa yang sedang menggunakannya
+sudo ss -tulpn
+```
+
+### Response Test
+
+```bash
+# Menguji dan melihat respon HTTP/HTTPS dari suatu alamat web
+curl [web]
+```
+
+```bash
+# Menguji dan melihat respon HTTP/HTTPS dari suatu alamat web dengan Flag Silent—seperti tanpa Verbose
+curl -s [web]
+```
+
+```bash
+# Menguji dan melihat respon HTTP/HTTPS dari suatu alamat web menggunakan Port
+curl [web]:[port]
+```
+
+```bash
+# Menguji dan melihat respon HTTP/HTTPS dari suatu alamat web dengan Header saja
+curl -I [web]:[port]
+```
+
+```bash
+# Melihat IP Address publik menggunakan Curl
+curl -s ifconfig.me
+```
+
+```bash
+# Melihat IP Address publik menggunakan Curl dengan lebih detail
+curl -s ipinfo.io
+```
+
+### IP Address
+
+```bash
+# Digunakan untuk melihat IP Private dan Loopback
+ip a
+# atau
+ip addr
+```
+
+### PING
+
+```bash
+# Untuk mengetes koneksi menggunakan ICMP
+ping [ip/domain]
+```
+
+```bash
+# Untuk mengetes koneksi menggunakan ICMP dengan Flag Count
+ping -c [number] [ip/domain]
+```
+
+### Telnet < Netcat
+
+```bash
+# Menggunakan Telnet untuk mengecek port apakah membalas atau tidak
+telnet [ip/domain] [port]
+```
+
+```bash
+# Menggunakan Netcat dengan Flag Zero-I/O (hanya mengetuk tanpa memberi paket) dan Flag Verbose (melihat detail)
+nc -zv [ip/domain] [port]
+```
+
+```bash
+# Menggunakan Netcat dengan Flag Zero-I/O (hanya mengetuk tanpa memberi paket), Flag Verbose (melihat detail) dan Timeout/Wait (tunggu)
+nc -zvw [number] [ip/domain] [port]
+```
+
+```bash
+# Menggunakan Netcat dengan Flag UDP, Flag Zero-I/O (hanya mengetuk tanpa memberi paket) dan Flag Verbose (melihat detail)
+nc -uzv [ip/domain] [port]
+```
+
+```bash
+# Menggunakan Netcat dengan Flag Listen (berperan sebagai penerima) dan Flag Verbose (melihat detail)
+nc -lv [port]
+```
+
+### Traceroute & Tracepath (Time To Live (TTL) & RTT (Round Trip Time))
+
+```bash
+# Menggunakan Traceroute dengan paket default UDP (User Datagram Protocol) ke Port tinggi acak (biasanya di atas Port 33434)
+traceroute [ip/domain]
+```
+
+```bash
+# Menggunakan Traceroute dengan paket ICMP (Internet Control Message Protocol) ke Port tinggi acak (di atas Port 33434)
+traceroute -I [ip/domain]
+```
+
+```bash
+# Menggunakan Traceroute dengan paket TCP (Transmission Control Protocol) ke Port tinggi acak (di atas Port 33434)
+sudo traceroute -T [ip/domain]
+```
+
+```bash
+# Menggunakan Traceroute dengan paket default UDP (User Datagram Protocol) ke Port tertentu
+traceroute -p [port] [ip/domain]
+```
+
+```bash
+# Menggunakan Tracepath dengan UDP untuk melihat Path Maximum Transmission Unit (PMTU) dan melihat jalur pulang packet (Asymm)
+tracepath [ip/domain]
+```
+
+### My TraceRoute (MTR)
+
+```bash
+# MTR menggunakan default ICMP untuk mengecek jalur secara Real-Time
+mtr [ip/domain]
+```
+
+```bash
+# Menggunakan TCP dan ICMP untuk mengecek jalur secara Real-Time
+mtr --tcp [ip/domain]
+```
+
+```bash
+# Menggunakan UDP dan ICMP untuk mengecek jalur secara Real-Time
+mtr --udp [ip/domain]
+```
+
+### Network Mapping (NMAP)
+
+```bash
+# Default menggunakan Flag Scan dan Flag Stealth dengan Half-Open agar lebih cepat dan tidak tercatat di log tujuan
+sudo nmap [ip/domain]
+# atau
+sudo nmap -sS [ip/domain]
+```
+
+```bash
+# Menggunakan Flag Scan dan Flag TCP agar 3-Way Handshake SYN - SYN/ACK - ACK terjadi
+sudo nmap -sT [ip/domain]
+```
+
+```bash
+# Menggunakan Flag Scan dan Flag UDP
+sudo nmap -sU [ip/domain]
+```
+
+```bash
+# Menggunakan Flag Port agar menscan langsung Port tertentu
+sudo nmap -p [port] [ip/domain]
 ```
