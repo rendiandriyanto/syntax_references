@@ -481,6 +481,11 @@ ip a
 ip addr
 ```
 
+```bash
+# Digunakan untuk melihat kemana Default Gateway diarahkan
+ip route
+```
+
 ### PING
 
 ```bash
@@ -525,6 +530,11 @@ nc -lv [port]
 ```bash
 # Menggunakan Traceroute dengan paket default UDP (User Datagram Protocol) ke Port tinggi acak (biasanya di atas Port 33434)
 traceroute [ip/domain]
+```
+
+```bash
+# Menggunakan Traceroute dengan Flag Numeric agar mengembalikan hasil numerik IP saja dan tidak perlu Reverse DNS Lookup
+traceroute -n [ip/domain]
 ```
 
 ```bash
