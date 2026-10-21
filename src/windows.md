@@ -66,3 +66,41 @@ Restart-Service [service]
 # Linux
 sudo systemctl restart [service]
 ```
+
+### Networking
+
+```bash
+# PING—Internet Control Message Protocol
+ping -n [number] [ip/domain]
+# Linux
+ping -c [number] [ip/domain]
+```
+
+```bash
+# Telnet yang Equivalent
+telnet [ip/domain] [port]
+# Linux
+telnet [ip/domain] [port]
+```
+
+```bash
+# Melihat apakah Port terbuka atau tidak
+Test-NetConnection -ComputerName [ip/domain] -Port [port]
+tnc [ip/domain] -Port [port]
+# Linux
+nc -zv [ip/domain] [port]
+```
+
+```bash
+# Traceroute dengan hasil numerik tanpa Reverse DNS Lookup
+tracert -d [ip/domain]
+# Linux
+traceroute -n [ip/domain]
+```
+
+```bash
+# Path yang mirip
+pathping [ip/domain]
+# Linux
+tracepath [ip/domain]
+```

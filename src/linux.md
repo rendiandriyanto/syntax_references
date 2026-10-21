@@ -17,6 +17,7 @@ Image by [Magnific](https://www.flaticon.com/free-icon/linux_518713)
 - Flag / Opsi = Digunakan untuk memberikan detail dari suatu Command
 - `sudo` = SuperUser DO memberikan sementara hak akses Administrator tertinggi di Linux
 - `sudo su` = SuperUser DO Switch User memberikan hak akses Administrator tertinggi di Linux
+- `sudo -i` = Sama seperti `sudo su` namun lebih bersih, aman dan independen sebagai Root
 - PID (Process ID) = Nomor identitas unik dari setiap proses yang berjalan di latar belakang
 
 ## Shell Command
@@ -344,6 +345,11 @@ df -h
 ```
 
 ```bash
+# Mengecek kuota Inode atau batas maksimal jumlah File yang bisa diciptakan di dalam Linux
+df -i
+```
+
+```bash
 # Menghitung total ukuran suatu Directory secara ringkas dengan Flag Human-Readable dan Flag Summary
 du -sh [directory]
 ```
@@ -419,6 +425,28 @@ sudo systemctl restart [service]
 sudo systemctl reload [service]
 ```
 
+```bash
+# Perintah untuk membaca Log seluruh sistem dari awal sampai akhir
+journalctl
+```
+
+```bash
+# Untuk mengikuti beberapa aktifitas Log terakhir (mirip seperti tail -f)
+journalctl -f
+```
+
+```bash
+# Melihat Log dari suatu Service
+journalctl -u [service]
+```
+
+```bash
+# Melihat prioritas Log Error dengan Flag Priority (terdapat 0-7 level prioritas pada Linux)
+journalctl -p err
+# atau
+journalctl -p 3
+```
+
 ## Network
 
 ### Remote Server
@@ -460,6 +488,11 @@ curl [web]:[port]
 ```bash
 # Menguji dan melihat respon HTTP/HTTPS dari suatu alamat web dengan Header saja
 curl -I [web]:[port]
+```
+
+```bash
+# Menggunakan Flag Verbose
+curl -v [web]:[port]
 ```
 
 ```bash
@@ -596,4 +629,9 @@ sudo nmap -sU [ip/domain]
 ```bash
 # Menggunakan Flag Port agar menscan langsung Port tertentu
 sudo nmap -p [port] [ip/domain]
+```
+
+```bash
+# Menggunakan Flag -Pn agar langsung mengecek seluruh Port tanpa melihat PING membalas atau tidak
+sudo nmap -Pn [ip/domain]
 ```
