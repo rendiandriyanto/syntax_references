@@ -1,0 +1,39 @@
+Topologi jaringan sederhana dan blokir akses NOC 1, 2 dan 3 ke Router terdekat (hanya bisa akses melewati Router via Server terdekat).
+
+Dari Router Hub ke Router/Subnet lain :
+ip route 192.168.2.0 255.255.255.252 10.10.10.2
+ip route 192.168.3.0 255.255.255.252 10.10.10.3
+ip route 192.168.4.0 255.255.255.0 10.10.10.4
+
+Dari Router A ke Router/Subnet lain :
+ip route 192.168.1.0 255.255.255.252 10.10.10.1
+ip route 192.168.3.0 255.255.255.252 10.10.10.3
+ip route 192.168.4.0 255.255.255.0 10.10.10.4
+
+Dari Router B ke Router/Subnet lain :
+ip route 192.168.1.0 255.255.255.252 10.10.10.1
+ip route 192.168.2.0 255.255.255.252 10.10.10.2
+ip route 192.168.4.0 255.255.255.0 10.10.10.4
+
+Dari Router Jump ke Router/Subnet lain :
+ip route 192.168.1.0 255.255.255.252 10.10.10.1
+ip route 192.168.2.0 255.255.255.252 10.10.10.2
+ip route 192.168.3.0 255.255.255.252 10.10.10.3
+
+Blokir akses NOC :
+Router> enable
+Router# configure terminal
+# 1. Membuat Extended ACL bernama BLOKIR_AKSES_NOC
+Router(config)# ip access-list extended BLOKIR_AKSES_NOC
+# 2. Izinkan Jump Server (192.168.4.2) untuk mengakses apa saja (termasuk Node A, B, HSM)
+Router(config-ext-nacl)# permit ip host 192.168.4.2 any
+# 3. Blokir semua IP laptop NOC (192.168.4.3 s/d 192.168.4.5) agar tidak bisa lewat router sama sekali
+Router(config-ext-nacl)# deny ip host 192.168.4.3 any
+Router(config-ext-nacl)# deny ip host 192.168.4.4 any
+Router(config-ext-nacl)# deny ip host 192.168.4.5 any
+Router(config-ext-nacl)# exit
+# 4. Pasang ACL pada interface router yang mengarah ke jaringan NOC (Arah IN) (tergantung arah kabel yang terhubung)
+Router(config)# interface GigabitEthernet0/0/0
+Router(config-if)# ip access-group BLOKIR_AKSES_NOC in
+Router(config-if)# end
+Router# write
